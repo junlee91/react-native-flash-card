@@ -23,7 +23,6 @@ import {
 } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
-import AddComponent from "./AddComponent";
 
 export default class HomeScreen extends React.Component {
   state = {
@@ -125,6 +124,16 @@ export default class HomeScreen extends React.Component {
               </Body>
             </CardItem>
           </Card>
+
+          <TouchableOpacity
+            onPressOut={() => {
+              this._playGame()
+            }}
+          >
+            <View style={styles.uploadBtn}>
+              <Text style={styles.uploadText}>Start!</Text>
+            </View>
+          </TouchableOpacity>
         </Content>
       </Container>
     );
@@ -136,7 +145,7 @@ export default class HomeScreen extends React.Component {
 
       this.setState({
         newText: ""
-      })
+      });
     }
 
     // TODO: API Call (POST)
@@ -147,4 +156,8 @@ export default class HomeScreen extends React.Component {
       newText: text
     });
   };
+
+  _playGame = () => {
+    console.log("Start Playing!");
+  }
 }

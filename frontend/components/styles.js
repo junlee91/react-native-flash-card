@@ -1,15 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   header: {
-    flex:1
+    flex: 1
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   innerContainer: {
-    alignItems: 'center',
+    alignItems: "center"
   },
   container: {
     flex: 1,
@@ -23,13 +23,12 @@ const styles = StyleSheet.create({
     padding: 15
   },
   input: {
-    flex: 0.5,
-
+    flex: 0.5
   },
   uploadBtn: {
     alignSelf: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 40,
     width: 150,
     height: 50,
     backgroundColor: "#3E99EE",
