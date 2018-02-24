@@ -1,21 +1,13 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import Expo from "expo";
+import HomeScreen from "./components/index.js";
 
-export default class App extends React.Component {
+export default class App extends Component {
+  constructor() {
+    super();
+  }
+  
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Hackthon!!!!!</Text>
-      </View>
-    );
+    return <HomeScreen />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
