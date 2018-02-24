@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     padding: 15
   },
   input: {
-    flex: 1
+    flex: 0.5,
+
   },
   uploadBtn: {
     alignSelf: "center",
