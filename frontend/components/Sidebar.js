@@ -8,16 +8,16 @@ export default class SideBar extends React.Component {
   render() {
     return (
       <Container>
-        <Content style={{backgroundColor: 'steelblue'}}>
+        <Content>
          <Icon name='logo-buffer' style={{marginTop: "20%", marginBottom: "10%", textAlign: 'center' }}>FlashCard</Icon>
           <Text style={{fontSize:20,fontFamily:"AmericanTypewriter-Light",  color:"white", paddingLeft:"3%", paddingTop:"3%",paddingBottom:"3%",  backgroundColor: 'black' }}>Category</Text>
           <List
             dataArray={routes}
             renderRow={data => {
               return (
-                <ListItem
+                <ListItem color="#841584"
                   button
-                  onPress={() => this.props.navigation.navigate("Home")}>
+                  onPress={() => this.props.navigation.navigate("Home",{ category: data })}>
                   <Text>{data}</Text>
                 </ListItem>
               );
