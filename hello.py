@@ -35,6 +35,9 @@ def getstuff():
     users = users_conn.all()
     return "users"
 
+@app.route("/Category/Update")
+def getstuff(Category):
+
 
 if __name__ == "__main__":
     app.run()
