@@ -1,5 +1,5 @@
-./frontend/node_modules/**/*
-./frontend/expo/*
-./frontend/package-lock.json
-./__pycache__/*
+frontend/node_modules/**/*
+frontend/expo/*
+frontend/package-lock.json
+__pycache__/*
 npm-debug.*
