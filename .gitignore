@@ -5,3 +5,4 @@ __pycache__/*
 npm-debug.*
 .DS_Store
 .expo/*
+.vscode
