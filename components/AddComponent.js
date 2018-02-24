@@ -58,7 +58,7 @@ class AddComponent extends Component {
             }}
           >
             <View style={styles.uploadBtn}>
-              <Text style={styles.uploadText}>Send!</Text>
+              <Text style={styles.uploadText}>Add!</Text>
             </View>
           </TouchableOpacity>
         </PopupDialog>
@@ -68,11 +68,13 @@ class AddComponent extends Component {
 
   _sendAction = text => {
     if (text === "") {
-      Alert.alert("Field required!");
+      Alert.alert("Input field is required!");
       return;
     }
 
     console.log("sending request! " + text);
+
+    // TODO: API Call (POST)
   };
 
   _onTextChange = text => {
