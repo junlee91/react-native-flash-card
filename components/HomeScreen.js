@@ -22,7 +22,9 @@ export default class HomeScreen extends React.Component {
     super();
   }
   render() {
-    //let category = this.props.navigation.state.params.category || "Basic"; 
+    let category = "Basic";
+    if(this.props.navigation.state.params && this.props.navigation.state.params.category)
+      category = this.props.navigation.state.params.category; 
     return (
       <Container>
         <Header>
@@ -53,6 +55,7 @@ export default class HomeScreen extends React.Component {
                   We are here to help you learn languages with flashcards. Go
                   explore our flashcards library and you can also add your own
                   cards.
+                  Current Cat: {category}
                 </Text>
               </Body>
             </CardItem>
