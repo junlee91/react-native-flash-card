@@ -91,9 +91,6 @@ export default class HomeScreen extends React.Component {
                         ? this._sendAction(this.state.newText)
                         : Alert.alert("Input field is required!");
                     }
-                    () => {
-                      {this.state.newText && this.closeModal()}
-                    }
                   }}
                 >
                   <View style={styles.uploadBtn}>
@@ -136,6 +133,10 @@ export default class HomeScreen extends React.Component {
   _sendAction = text => {
     if (text !== "") {
       console.log("sending request! " + text);
+
+      this.setState({
+        newText: ""
+      })
     }
 
     // TODO: API Call (POST)
