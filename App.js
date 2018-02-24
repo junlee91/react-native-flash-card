@@ -1,9 +1,15 @@
-import React from "react";
 
-import AddComponent from "./components/AddComponent";
+import React, { Component } from "react";
+import Expo from "expo";
+import HomeScreen from "./components/index.js";
 
-export default class App extends React.Component {
+export default class App extends Component {
+  constructor() {
+    super();
+  }
+  
   render() {
-    return <AddComponent />;
+
+    return <HomeScreen />;
   }
 }
