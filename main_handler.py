@@ -23,8 +23,10 @@ import new_card_handler
 
 @app.route("/populate")
 def populate():
-    session.add(user)
-    session.commit()
+    user = session.query(User).filter_by(name='seho')
+    user = session.get()
+    new_catagory = Category()
+
     return "adsfasdfasdf"
 
 
