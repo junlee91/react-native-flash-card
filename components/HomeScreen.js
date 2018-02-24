@@ -6,11 +6,9 @@ import AddComponent from "./AddComponent";
 export default class HomeScreen extends React.Component {
   constructor(){
     super();
-    this.state={
-      category:"basic"
-    }
   }
   render() {
+    //let category = this.props.navigation.state.params.category || "Basic"; 
     return (
       <Container>
         <Header>
@@ -36,6 +34,7 @@ export default class HomeScreen extends React.Component {
                 <Text>
                   We are here to help you learn languages with flashcards. 
                   Go explore our flashcards library and you can also add your own cards.
+                  Current category is: {this.state.category}.
                 </Text>
               </Body>
             </CardItem>
