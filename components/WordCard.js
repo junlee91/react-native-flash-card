@@ -1,7 +1,11 @@
 import React from 'react';
-import { StyleSheet, Image} from 'react-native';
-import { Container, Header, View, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Toast, Button } from 'native-base';
-
+import { StyleSheet, Image } from 'react-native';
+import { DeckSwiper, Container, Header, View, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Toast, Button } from 'native-base';
+const cards = [
+  { uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rose_Hill_Farm_Alpaca_01.jpg/1200px-Rose_Hill_Farm_Alpaca_01.jpg" },
+  { uri: "http://news.blr.com/app/uploads/sites/3/2016/10/Llama-1.jpg" },
+  { uri: "http://www.dw.com/image/36940534_401.jpg" },
+];
 export default class CardContent extends React.Component {
 
   constructor(props) {
@@ -10,6 +14,8 @@ export default class CardContent extends React.Component {
       picDisplay: false
     };
   }
+
+
 
   tapToSwitch = () => {
     console.log("asdasdasd");
@@ -20,42 +26,62 @@ export default class CardContent extends React.Component {
 
   render() {
     return (
-      <Card style={styles.card} >
-        <CardItem cardBody style={styles.cardBody}>
-          <Text> this.props.word </Text>
-          <Image style={styles.image} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rose_Hill_Farm_Alpaca_01.jpg/1200px-Rose_Hill_Farm_Alpaca_01.jpg' }} />
-        </CardItem>
-        {/* <CardItem button style={styles.cardFooter} onPress={this.buttonOnPress}>
-          <Text style={styles.footerText}>{this.props.name}</Text>
-          <Button transparent={true} style={styles.button} onPress={this.buttonOnPress}>
-            <Icon name="info-circle" style={styles.icon} />
-          </Button>
-        </CardItem> */}
-      </Card>
+      <DeckSwiper
+        dataSource={cards}
+        renderItem={item =>
+          <Card style={styles.card}>
+            <CardItem>
+              <Left>
+                <Thumbnail source={{uri: item.uri}} />
+                <Body>
+                  <Text>Hiiiii</Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody>
+              <Image style={styles.picStyle} source={{uri: item.uri}} />
+            </CardItem>
+          </Card>
+
+
+          // <Card style={styles.card} >
+          //   <CardItem cardBody style={styles.cardBody}>
+          //     <Body>
+          //       <Text> {this.props.word} </Text>
+          //       <Image style={styles.picStyle} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rose_Hill_Farm_Alpaca_01.jpg/1200px-Rose_Hill_Farm_Alpaca_01.jpg' }} />
+          //     </Body>
+          //   </CardItem>
+          // </Card>
+
+
+        }
+      />
+
 
     );
   }
 }
 
-
-
 const styles = StyleSheet.create({
-
   wordStyle: {
     // display: none,    
   },
-
   wordStyle_n: {
     display: 'none',
   },
-
+  container: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
   picStyle: {
     // display: none,
-    width: 400,
-    height: 400
-
+    flexGrow: 1,
+    width: 330,
+    height: 350,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
   picStyle_n: {
     display: 'none',
 
@@ -65,21 +91,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 10,
   },
-  cardFooter: {
-    justifyContent: 'space-between'
-  },
-  footerText: {
-    color: 'grey',
-  },
   image: {
-    height: cardHeight,
+    height: 30,
     flex: 1
   },
   button: { height: 30 },
-  icon: {
-    color: '#C3BFBF',
-    fontSize: 25
-  }
-
-
 })
