@@ -13,10 +13,7 @@ export default class App extends Component {
   
   render() {
     return (
-      <Container word="Hello, I am alpaca" style={{marginTop: 150
-        }}>
-        <WordCard/>
-      </Container>
+      <HomeScreen/> 
     );
   }
 }

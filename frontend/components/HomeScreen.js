@@ -24,6 +24,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 import AddComponent from "./AddComponent";
+import WordCard from "./WordCard";
 
 export default class HomeScreen extends React.Component {
   state = {
@@ -111,7 +112,7 @@ export default class HomeScreen extends React.Component {
             </View>
           </Modal>
 
-          <Card>
+          {/* <Card>
             <CardItem header>
               <Text>Welcome to FlashCard!!!</Text>
             </CardItem>
@@ -124,7 +125,8 @@ export default class HomeScreen extends React.Component {
                 </Text>
               </Body>
             </CardItem>
-          </Card>
+          </Card> */}
+          <WordCard/>
         </Content>
       </Container>
     );
