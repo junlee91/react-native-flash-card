@@ -59,15 +59,18 @@ def newCategory():
 
 @app.route("/<int:category_id>/Card/new", methods=['GET', 'POST'])
 def new_Card(category_id):
+    from googletrans import Translator
+    translator = Translator()
+	dest = 'ko'
     user = session.query(User).filter_by(name='seho').one()
     category = session.query(Category).filter_by(id=category_id).one()
     print("stuff")
     if request.method == 'POST':
         #name = request.form['name']
-        name = "random_hello2"
+        name = "Tiger"
         #category = request.form['category']
         category = "random_category2"
-        translated_name = "I am trnaslated stuff."
+        translated_name = translator.translate(name,dest)
         # Checks if the user input a name and a description.
         print("things")
         if name and category:
@@ -133,8 +136,7 @@ app.route("/<int:user_id>/Update")
             values(name = update_json["name"])
     } 
     return "Success"
-
-        
+       
 
 
 if __name__ == "__main__":
