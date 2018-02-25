@@ -123,6 +123,7 @@ def getstuff():
 
     users_conn = session.query(User)
     users = users_conn.all()
+<<<<<<< HEAD
     return "users"
 
 app.route("/<int:user_id>/Update") 
@@ -137,6 +138,39 @@ app.route("/<int:user_id>/Update")
     } 
     return "Success"
        
+=======
+    courses_list = [user.serialize for user in users]
+    return jsonify(User=courses_list)
+
+
+@app.route("/getCategories")
+def getCategories():
+    categories_conn = session.query(Category)
+    categories = categories_conn.all()
+    category_list = [category.serialize for category in categories]
+    return jsonify(Category=category_list)
+
+
+@app.route("/getCards")
+def getCards():
+    cards_conn = session.query(Card)
+    cards = cards_conn.all()
+    card_list = [card.serialize for card in cards]
+    return jsonify(Card=card_list)
+
+
+app.route("/<int:user_id>/Update")
+
+
+def updateUser(user_id):
+    from sqlalchemy import update
+    update_json = {
+        "name": "updated_name",
+    }
+    stmt = update(User).where(user_id == user_id).\
+        values(name=update_json["name"])
+    return "Success"
+>>>>>>> cee799de2f246658afa96e6de83896afa405f838
 
 
 if __name__ == "__main__":
