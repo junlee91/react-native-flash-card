@@ -1,5 +1,5 @@
 import React from "react";
-import { AppRegistry, StatusBar } from "react-native";
+import { Platform, AppRegistry, StatusBar } from "react-native";
 import { Container, Content, Text, List, ListItem,Icon, Header } from "native-base";
 
 
@@ -10,7 +10,7 @@ export default class SideBar extends React.Component {
       <Container>
         <Content>
          <Icon name='logo-buffer' style={{marginTop: "20%", marginBottom: "10%", textAlign: 'center' }}>FlashCard</Icon>
-          <Text style={{fontSize:20,fontFamily:"AmericanTypewriter-Light",  color:"white", paddingLeft:"3%", paddingTop:"3%",paddingBottom:"3%",  backgroundColor: 'black' }}>Category</Text>
+          <Text style={{fontSize:20,fontFamily:Platform.OS === 'ios'? "AmericanTypewriter-Light":"Roboto" ,  color:"white", paddingLeft:"3%", paddingTop:"3%",paddingBottom:"3%",  backgroundColor: 'black' }}>Category</Text>
           <List
             dataArray={routes}
             renderRow={data => {
