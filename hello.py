@@ -35,9 +35,42 @@ def getstuff():
     users = users_conn.all()
     return "users"
 
-@app.route("/Category/Update")
-def getstuff(Category):
+@app.route("/<int:category_id>/Update")
+def getstuff(category_id):
+    update_json = {
+        "name":"updated_category"
+        "description: "updated_description"
 
+    };
 
+    session.commit()
+
+@app.route("/<int:category_id>/Update")
+def getstuff(user):
+    from sqlalchemy import update
+
+    update_json = {
+        "name": "updated_category",
+        "description":"updated_description"
+    }
+    stmt = update(Category).where(category_id == category_id).\
+        values(name=update_json["name"],
+        description=update_json["description"])
+    
+    return "Success"
+
+@app.route("/<string:user_name>/Update") 
+    def updateUser() {
+        update_json {
+            "name" = "updated_name",
+
+        }
+        stmt = update(User).where(user_name == user_name).\
+            values(name = update_json["name"])
+    } 
+    return "Success"
+
+    
 if __name__ == "__main__":
     app.run()
+
