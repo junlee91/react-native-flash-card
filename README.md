@@ -1,6 +1,6 @@
 # react-native-flash-card
 
-## Screenshot
+## Screenshots
 [![Screenshot](screenshot/screenshots.png)](https://github.com/junlee91/react-native-flash-card/blob/master/screenshot/screenshots.png)
 
 ## Try it out
