@@ -30,25 +30,32 @@ export default class SideBar extends React.Component {
   _callApi = ()=>{
     return fetch("https://stormy-waters-25481.herokuapp.com/getCategories")
           .then(response => response.json())
-          .then(json => json.Category)
+          .then((json) => {
+            let categories = [];
+            //console.log(json.Category);
+            for(let i in json.Category){
+              categories.push(json.Category[i].name);
+            }
+            return categories
+          })
           .catch(err=>console.log(err))
   }
 
 
   render() {
-    console.log(this.state.categories);
+    
     return (
       <Container>
         <Content>
          <Icon name='logo-buffer' style={styles.icon}>FlashCard</Icon>
           <Text style={styles.category}>Category</Text>
           <List
-            dataArray={routes}
+            dataArray={this.state.categories}
             renderRow={data => {
               return (
                 <ListItem color="#841584"
                   button
-                  onPress={() => this.props.navigation.navigate("WordCard",{ category: data })}>
+                  onPress={() => this.props.navigation.navigate("Home",{ category: data })}>
                   <Text>{data}</Text>
                 </ListItem>
               );
