@@ -12,6 +12,14 @@ class User(Base):
     name = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
 
+    @property
+    def serialize(self):
+        """Return object data in easily serializable format"""
+        return {
+            'name': self.name,
+            'email': self.email,
+        }
+
 
 class Category(Base):
     __tablename__ = 'category'
@@ -19,10 +27,19 @@ class Category(Base):
     name = Column(String(50), nullable=False)
     description = Column(String(200))
     created_on = Column(DateTime, default=func.now())
-    created_by = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship("User")
     card = relationship("Card")
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializable format"""
+        return {
+            'name': self.name,
+            'description': self.description,
+            'created_on': self.created_on,
+            'created_by': self.created_by,
+        }
 
 
 class Card(Base):
@@ -33,11 +50,21 @@ class Card(Base):
     #memorized = Column(Integer)
     memorized_bool = Column(Boolean)
     created_on = Column(DateTime, default=func.now())
-    created_by = Column(String(250), nullable=False)
     category = relationship("Category")
     category_id = Column(Integer, ForeignKey('category.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship("User")
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializable format"""
+        return {
+            'name': self.name,
+            'translated_name': self.translated_name,
+            'memorized_bool': self.memorized_bool,
+            'created_on': self.created_on,
+            'created_by': self.created_by
+        }
 
 
 engine = create_engine('sqlite:///flashcard.db')
