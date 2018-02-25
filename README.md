@@ -16,6 +16,23 @@ git clone https://github.com/junlee91/react-native-flash-card.git
 cd frontend
 
 npm install
+
+
+cd .. 
+
+cd backend
+
+pip install -r requirements.txt
+
+python database_setup.py
+
+sqlite3 flashcard.db
+
+.read deploy/seed.sql
+
+python app.py
+
+
 ``` 
 
 ## Demo
