@@ -1,7 +1,10 @@
 # react-native-flash-card
 
 [PROJECT DESCRIPTION]
-  * [PROJECT FEATURES] 
+This application may not run correctly on Andorid. Waiting for your awesome contribution!
+  * Bing Image Search
+  * Google Translate
+  * React-Native
 
 ## USAGE
   * [USAGE EXAMPLE]
