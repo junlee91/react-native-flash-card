@@ -1,5 +1,7 @@
 # react-native-flash-card
 
+Our FlashCard app is a ...
+
 ## Screenshots
 [![Screenshot](screenshot/screenshots.png)](https://github.com/junlee91/react-native-flash-card/blob/master/screenshot/screenshots.png)
 
