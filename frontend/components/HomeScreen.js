@@ -61,6 +61,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
     const datas = this.state.cards;
+    //console.log(datas)
     return (
       <Container>
         <Header>

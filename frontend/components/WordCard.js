@@ -15,6 +15,7 @@ const cards = [
     uri: "http://www.dw.com/image/36940534_401.jpg"
   },
 ];
+
 export default class CardContent extends React.Component {
 
   constructor(props) {
@@ -31,7 +32,7 @@ export default class CardContent extends React.Component {
   }
 
   picDisplayFalse = () => {
-    console.log("asdasd")
+    console.log("Clicked!")
     this.setState({
       picDisplay: false,
     });
@@ -40,19 +41,26 @@ export default class CardContent extends React.Component {
 
 
   render() {
-    return (
+    const datas = this.props;
+    
+    if(datas.data.length === 0){
+      return <Text>Loading..</Text>
+    }
 
+    //console.log(datas.data);
+
+    return (
       <DeckSwiper
         onSwipeRight={this.picDisplayFalse}
         onSwipeLeft={this.picDisplayFalse}
-        dataSource={cards}
+        dataSource={datas.data}
         renderItem={item =>
           <TouchableOpacity activeOpacity={1} onPress={this.tapToSwitch}>
             <Card style={styles.card}>
               <CardItem cardBody>
 
-                <Text style={styles.wordStyle}>{item.word}</Text>
-                <Image style={this.state.picDisplay ? styles.picStyle : styles.picStyle_n} source={{ uri: item.uri }} />
+                <Text style={styles.wordStyle}>{item.name}</Text>
+                <Image style={this.state.picDisplay ? styles.picStyle : styles.picStyle_n} source={{ uri: item.image_url }} />
               
               </CardItem>
             </Card>
