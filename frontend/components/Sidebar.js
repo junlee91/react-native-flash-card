@@ -17,7 +17,7 @@ export default class SideBar extends React.Component {
               return (
                 <ListItem color="#841584"
                   button
-                  onPress={() => this.props.navigation.navigate("Home",{ category: data })}>
+                  onPress={() => this.props.navigation.navigate("WordCard",{ category: data })}>
                   <Text>{data}</Text>
                 </ListItem>
               );

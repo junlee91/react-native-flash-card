@@ -41,6 +41,7 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    
     return (
       <Container>
         <Header>
@@ -64,8 +65,8 @@ export default class HomeScreen extends React.Component {
             />
           </Right>
         </Header>
-
-        <Content padder>
+        
+        <Content padder scrollEnabled={false}>
           <Modal
             visible={this.state.modalVisible}
             animationType={"slide"}
@@ -112,7 +113,7 @@ export default class HomeScreen extends React.Component {
             </View>
           </Modal>
 
-          {/* <Card>
+          <Card>
             <CardItem header>
               <Text>Welcome to FlashCard!!!</Text>
             </CardItem>
@@ -125,10 +126,12 @@ export default class HomeScreen extends React.Component {
                 </Text>
               </Body>
             </CardItem>
-          </Card> */}
+          </Card>
           <WordCard/>
         </Content>
+       
       </Container>
+      
     );
   }
 
