@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, redirect, jsonify, \
 from sqlalchemy import create_engine, asc, desc, and_
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Category, Card
-from py_bing_search import PyBingImageSearch
 from random import randint
 
 import requests
@@ -32,8 +31,7 @@ def _translate(aa):
     return translated_text
 
 
-def _get_image(name):
-    search_term = "lake"
+def _get_image(search_term):
     search_url = "https://api.cognitive.microsoft.com/bing/v7.0/images/search"
 
     headers = {"Ocp-Apim-Subscription-Key": "1a18e93243bb415e88efcbf0708e9189"}
@@ -88,15 +86,12 @@ def new_Card(category_id):
     category = session.query(Category).filter_by(id=category_id).one()
     if request.method == 'POST':
         content = request.json
-
+        input_text = content["text"]
         #name = request.form['name']
         # This input word is supposed to come from the client.
-        input_word = "text"
         #category = request.form['category']
-        category = "random_category2"
-        input_word = "lake"
-        translated_text = _translate(input_word)
-        img_json = _get_image(input_word)
+        translated_text = _translate(input_text)
+        img_json = _get_image(input_text)
 
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(img_json)
@@ -104,10 +99,12 @@ def new_Card(category_id):
 
         # Checks if the user input a name and a description.
 
-        created_card = Card(name=input_word, img_url=img_url, translated_name=translated_text,
+        created_card = Card(name=input_text, img_url=url, translated_name=translated_text,
                             category_id=category_id, user_id=user.id)
         session.add(created_card)
         session.commit()
+
+    return None
 
 
 @app.route("/<int:category_id>/update", methods=['GET', 'POST'])
@@ -148,7 +145,7 @@ def getCategories():
 def getCards():
     cards_conn = session.query(Card)
     cards = cards_conn.all()
-    card_list = [card.serialize for card in cards]
+    card_list = [card.serialize for card in cards[::-1]]
     return jsonify(Card=card_list)
 
 
