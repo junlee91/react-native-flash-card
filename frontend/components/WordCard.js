@@ -137,7 +137,7 @@ export default class CardContent extends React.Component {
           <FlipCard
             style={{
               flex: 1,
-              marginTop: -10,
+              marginTop: -55,
               padding: 30,
               height: 50,
               borderWidth: 0

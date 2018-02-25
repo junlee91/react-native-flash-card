@@ -49,16 +49,15 @@ export default class HomeScreen extends React.Component {
   }
 
   _refresh = () => {
-    
     this.setState({
       isFetching: true
     });
-    console.log('refreshing...?')
+    console.log("refreshing...?");
     this._getCards();
   };
 
   _getCards = async () => {
-    console.log('getting...')
+    console.log("getting...");
     const cards = await this._callApi();
 
     this.setState({
@@ -102,14 +101,14 @@ export default class HomeScreen extends React.Component {
         </Header>
         <Content padder scrollEnabled={false}>
           <ScrollView
-              refreshControl={
-                <RefreshControl 
-                  refreshing={this.state.isFetching}
-                  onRefresh={this._refresh}
-                  tintColor={"black"}
-                />
-              }
-            >
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.isFetching}
+                onRefresh={this._refresh}
+                tintColor={"black"}
+              />
+            }
+          >
             <Modal
               visible={this.state.modalVisible}
               animationType={"slide"}
@@ -133,9 +132,11 @@ export default class HomeScreen extends React.Component {
                     onPressOut={() => {
                       {
                         this.state.newText
-                          ? this._sendAction(this.state.newText)
+                          ? 
+                          this._sendAction(this.state.newText)
                           : Alert.alert("Input field is required!");
                       }
+                      this.closeModal();
                     }}
                   >
                     <View style={styles.uploadBtn}>
@@ -146,6 +147,7 @@ export default class HomeScreen extends React.Component {
                   <TouchableOpacity
                     onPressOut={() => {
                       this.closeModal();
+                      this._getCards();
                     }}
                   >
                     <View style={styles.calcelBtn}>
