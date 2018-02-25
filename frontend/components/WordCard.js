@@ -6,61 +6,34 @@ const cards = [
   { uri: "http://news.blr.com/app/uploads/sites/3/2016/10/Llama-1.jpg" },
   { uri: "http://www.dw.com/image/36940534_401.jpg" },
 ];
-export default class CardContent extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      picDisplay: false
-    };
-  }
-
-
-
-  tapToSwitch = () => {
-    console.log("asdasdasd");
-    this.setState({
-      picDisplay: !this.state.picDisplay,
-    });
-  }
-
-  render() {
-    return (
-      <DeckSwiper
-        dataSource={cards}
-        renderItem={item =>
-          <Card style={styles.card}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: item.uri}} />
-                <Body>
-                  <Text>Hiiiii</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem cardBody>
-              <Image style={styles.picStyle} source={{uri: item.uri}} />
-            </CardItem>
-          </Card>
-
-
-          // <Card style={styles.card} >
-          //   <CardItem cardBody style={styles.cardBody}>
-          //     <Body>
-          //       <Text> {this.props.word} </Text>
-          //       <Image style={styles.picStyle} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rose_Hill_Farm_Alpaca_01.jpg/1200px-Rose_Hill_Farm_Alpaca_01.jpg' }} />
-          //     </Body>
-          //   </CardItem>
-          // </Card>
-
-
-        }
-      />
-
-
-    );
-  }
+state = {
+  picDisplay: false,
 }
+
+function WordCard({data}){
+  return (
+    <DeckSwiper
+      dataSource={cards}
+      renderItem={item =>
+        <Card style={styles.card}>
+          <CardItem>
+            <Left>
+              <Thumbnail source={{uri: item.uri}} />
+              <Body>
+                <Text>Hiiiii</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            <Image style={styles.picStyle} source={{uri: item.uri}} />
+          </CardItem>
+        </Card>
+      }
+    />
+  );
+}
+
 
 const styles = StyleSheet.create({
   wordStyle: {
@@ -97,3 +70,6 @@ const styles = StyleSheet.create({
   },
   button: { height: 30 },
 })
+
+
+export default WordCard;
