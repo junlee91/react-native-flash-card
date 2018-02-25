@@ -18,18 +18,6 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-'''
-id = Column(Integer, primary_key=True)
-    name = Column(String(50), nullable=False)
-    description = Column(String(200))
-    created_on = Column(DateTime, default=func.now())
-    created_by = Column(String(250), nullable=False)
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    user = relationship("User")
-    card = relationship("Card")
-'''
-
-
 def _translate(aa):
 
     return aa + "bb"
@@ -69,6 +57,7 @@ def newCategory():
     return "Success4"
 
 
+<<<<<<< HEAD
 '''
 class Card(Base):
     __tablename__ = 'card'
@@ -93,9 +82,11 @@ def delete(category_id):
 
     return 
 
+=======
+>>>>>>> f8ee1b85c534ead5cfec9c47cde2e23b578f9eb5
 @app.route("/<int:category_id>/Card/new", methods=['GET', 'POST'])
 def new_Card(category_id):
-    user = session.query(User).filter_by(name='seho')
+    user = session.query(User).filter_by(name='seho').one()
     category = session.query(Category).filter_by(id=category_id).one()
     print("stuff")
     if request.method == 'POST':
@@ -123,7 +114,6 @@ def new_Card(category_id):
                                 user_id=user.id)
             session.add(created_card)
             session.commit()
-            #flash("Successfully created %s" % created_card.name)
             return "Success2"
 
         else:
@@ -135,13 +125,21 @@ def new_Card(category_id):
     return "Success5"
 
 
-@app.route("/populate")
-def populate():
-    user = session.query(User).filter_by(name='seho')
-    user = session.get()
-    new_catagory = Category()
+@app.route("/<int:category_id>/update", methods=['GET', 'POST'])
+def update_category(category_id):
 
-    return "adsfasdfasdf"
+    # get the cateogory using
+    # update
+    update_json = {
+        "name": "updated_category",
+        "descirption": "updated_description"
+    }
+
+    stmt = update(Category).where(category.id == category_id).\
+        values(name=update_json["name"],
+               descirption=update_json["description"])
+
+    return
 
 
 @app.route("/getUsers")
