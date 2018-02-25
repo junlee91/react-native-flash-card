@@ -85,6 +85,13 @@ class Card(Base):
     user = relationship("User")
 '''
 
+@app.route('/<int:category_id>/Delete', methods=['POST'])
+def delete(category_id):
+    if request.method == 'POST':
+        Category.query.filter(category.id == category_id).delete()
+
+
+    return 
 
 @app.route("/<int:category_id>/Card/new", methods=['GET', 'POST'])
 def new_Card(category_id):
