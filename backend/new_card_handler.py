@@ -29,21 +29,3 @@ def new_Card(category_id):
                                    description=description, name=name)
     else:
         return render_template('newCard.html', course=course)
-<<<<<<< HEAD:new_card_handler.py
-     
-
-app.route("/<int:user_id>/Update") 
-    def updateUser(user_id) {
-        from sqlalchemy import update
-        update_json {
-            "name" = "updated_name",
-
-        }
-        stmt = update(User).where(user_id == user_id).\
-            values(name = update_json["name"])
-    } 
-    return "Success"
-
-    
-=======
->>>>>>> f8ee1b85c534ead5cfec9c47cde2e23b578f9eb5:backend/new_card_handler.py
