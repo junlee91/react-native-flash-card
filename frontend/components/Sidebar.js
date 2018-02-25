@@ -2,7 +2,6 @@ import React from "react";
 import { Platform, AppRegistry, StyleSheet, StatusBar } from "react-native";
 import { Container, Content, Text, List, ListItem,Icon, Header } from "native-base";
 
-
 export default class SideBar extends React.Component {
   constructor(){
     super();
@@ -38,7 +37,7 @@ export default class SideBar extends React.Component {
 
 
   render() {
-    
+    //console.log(this.state.categories);
     return (
       <Container>
         <Content>
