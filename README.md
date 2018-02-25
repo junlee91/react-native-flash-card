@@ -10,7 +10,9 @@ This application may not run correctly on Andorid. Waiting for your awesome cont
   * React-Native
 
 ## USAGE
-  * [USAGE EXAMPLE]
+  * Guess the meaning of the word by swiping the cards to left and right
+  * Hints will show up when user clicks the card by showing relevant image
+  * Look for translation to match with your knowledge!
 
 ## BUILD/INSTALLATION INSTRUCTIONS
 ```sh
