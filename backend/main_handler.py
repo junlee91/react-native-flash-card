@@ -121,8 +121,23 @@ def getstuff():
     users_conn = session.query(User)
     users = users_conn.all()
     courses_list = [user.serialize for user in users]
-
     return jsonify(User=courses_list)
+
+
+@app.route("/getCategories")
+def getCategories():
+    categories_conn = session.query(Category)
+    categories = categories_conn.all()
+    category_list = [category.serialize for category in categories]
+    return jsonify(Category=category_list)
+
+
+@app.route("/getCards")
+def getCards():
+    cards_conn = session.query(Card)
+    cards = cards_conn.all()
+    card_list = [card.serialize for card in cards]
+    return jsonify(Card=card_list)
 
 
 app.route("/<int:user_id>/Update")
