@@ -17,7 +17,7 @@ class User(Base):
         """Return object data in easily serializable format"""
         return {
             'name': self.name,
-            'email': self.email,
+            'email': self.email
         }
 
 
@@ -37,8 +37,7 @@ class Category(Base):
         return {
             'name': self.name,
             'description': self.description,
-            'created_on': self.created_on,
-            'created_by': self.created_by,
+            'created_on': self.created_on
         }
 
 
@@ -49,6 +48,7 @@ class Card(Base):
     translated_name = Column(String(250), nullable=False)
     #memorized = Column(Integer)
     memorized_bool = Column(Boolean)
+    img_url = Column(String(500))
     created_on = Column(DateTime, default=func.now())
     category = relationship("Category")
     category_id = Column(Integer, ForeignKey('category.id'))
@@ -61,9 +61,9 @@ class Card(Base):
         return {
             'name': self.name,
             'translated_name': self.translated_name,
+            'img_url': self.img_url,
             'memorized_bool': self.memorized_bool,
-            'created_on': self.created_on,
-            'created_by': self.created_by
+            'created_on': self.created_on
         }
 
 
