@@ -3,16 +3,16 @@ import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { DeckSwiper, Container, Header, View, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Toast, Button } from 'native-base';
 const cards = [
   {
-    word: "alpaca",
-    uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rose_Hill_Farm_Alpaca_01.jpg/1200px-Rose_Hill_Farm_Alpaca_01.jpg"
+    name: "alpaca",
+    image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rose_Hill_Farm_Alpaca_01.jpg/1200px-Rose_Hill_Farm_Alpaca_01.jpg"
   },
   {
-    word: "llama",
-    uri: "http://news.blr.com/app/uploads/sites/3/2016/10/Llama-1.jpg"
+    name: "llama",
+    image_url: "http://news.blr.com/app/uploads/sites/3/2016/10/Llama-1.jpg"
   },
   {
-    word: "panda",
-    uri: "http://www.dw.com/image/36940534_401.jpg"
+    name: "panda",
+    image_url: "http://www.dw.com/image/36940534_401.jpg"
   },
 ];
 
@@ -53,7 +53,7 @@ export default class CardContent extends React.Component {
       <DeckSwiper
         onSwipeRight={this.picDisplayFalse}
         onSwipeLeft={this.picDisplayFalse}
-        dataSource={datas.data}
+        dataSource={cards}
         renderItem={item =>
           <TouchableOpacity activeOpacity={1} onPress={this.tapToSwitch}>
             <Card style={styles.card}>
