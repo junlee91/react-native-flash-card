@@ -23,7 +23,7 @@ import {
 } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
-import AddComponent from "./AddComponent";
+
 import WordCard from "./WordCard";
 
 export default class HomeScreen extends React.Component {
