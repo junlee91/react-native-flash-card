@@ -183,10 +183,6 @@ const styles = StyleSheet.create({
     paddingBottom: 120
     // overflow: 'hidden',
   },
-  // container: {
-  // alignItems: 'stretch',
-  // justifyContent: 'center',
-  // },
   picStyle: {
     // display: none,
     flex: 0,
