@@ -31,7 +31,6 @@ export default class CardContent extends React.Component {
   }
 
   picDisplayFalse = () => {
-    console.log("asdasd")
     this.setState({
       picDisplay: false,
     });
@@ -78,10 +77,6 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
     // overflow: 'hidden',  
   },
-  // container: {
-  // alignItems: 'stretch',
-  // justifyContent: 'center',
-  // },
   picStyle: {
     // display: none,
     flex: 0,
