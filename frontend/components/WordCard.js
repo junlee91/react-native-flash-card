@@ -86,7 +86,8 @@ export default class CardContent extends React.Component {
             onSwipeRight={this.picDisplayFalse}
             onSwipeLeft={this.picDisplayFalse}
             dataSource={datas.data}
-            renderItem={item => (
+            renderItem={item => item.img_url ? 
+              (
               <View>
                 <TouchableOpacity
                   activeOpacity={1}
@@ -98,8 +99,8 @@ export default class CardContent extends React.Component {
                       <Image
                         style={
                           this.state.picDisplay
-                            ? styles.picStyle_n
-                            : styles.picStyle
+                            ? styles.picStyle
+                            : styles.picStyle_n
                         }
                         source={{ uri: item.img_url }}
                       />
@@ -107,15 +108,39 @@ export default class CardContent extends React.Component {
                   </Card>
                 </TouchableOpacity>
               </View>
-            )}
+            ) : (
+              <View>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => this.tapToSwitch(null)}
+                >
+                  <Card style={styles.card}>
+                    <CardItem cardBody>
+                      <Text style={styles.wordStyle}>Oops! Error</Text>
+                      <Image
+                        style={
+                          this.state.picDisplay
+                            ? styles.picStyle
+                            : styles.picStyle_n
+                        }
+                        source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/6/6c/No_image_3x4.svg" }}
+                      />
+                    </CardItem>
+                  </Card>
+                </TouchableOpacity>
+              </View>
+            )
+          }
           />
         </View>
         {this.state.picDisplay && (
           <FlipCard
             style={{
               flex: 1,
-              marginTop: 7,
-              height: 50
+              marginTop: -55,
+              padding: 30,
+              height: 50,
+              borderWidth: 0
             }}
           >
             {/* Face Side */}
@@ -144,7 +169,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   swiper: {
-    marginTop: 10
+    marginTop: 30
   },
   wordStyle: {
     flex: 1,

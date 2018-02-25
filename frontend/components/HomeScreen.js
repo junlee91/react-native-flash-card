@@ -5,7 +5,9 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Alert
+  Alert,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import {
   Container,
@@ -30,7 +32,8 @@ export default class HomeScreen extends React.Component {
   state = {
     modalVisible: false,
     newText: "",
-    cards: []
+    cards: [],
+    isFetching: false
   };
 
   openModal() {
@@ -41,26 +44,37 @@ export default class HomeScreen extends React.Component {
     this.setState({ modalVisible: false });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this._getCards();
   }
 
-  _getCards = async () => {
-    const cards = await this._callApi();
+  _refresh = () => {
     this.setState({
-      cards
+      isFetching: true
+    });
+    console.log("refreshing...?");
+    this._getCards();
+  };
+
+  _getCards = async () => {
+    console.log("getting...");
+    const cards = await this._callApi();
+
+    this.setState({
+      cards,
+      isFetching: false
     });
   };
 
   _callApi = () => {
     return fetch("https://stormy-waters-25481.herokuapp.com/getCards")
       .then(response => response.json()) // only one attribute
-      .then(json => json.Card) // don't need return statement  '=>' automatically returns
+      .then(json => json) // don't need return statement  '=>' automatically returns
       .catch(err => console.log(err));
   };
 
   render() {
-    const datas = this.state.cards;
+    const datas = this.state.cards.Card;
     //console.log(datas)
     return (
       <Container>
@@ -85,71 +99,82 @@ export default class HomeScreen extends React.Component {
             />
           </Right>
         </Header>
-
         <Content padder scrollEnabled={false}>
-          <Modal
-            visible={this.state.modalVisible}
-            animationType={"slide"}
-            onRequestClose={() => this.closeModal()}
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.isFetching}
+                onRefresh={this._refresh}
+                tintColor={"black"}
+              />
+            }
           >
-            <StatusBar hidden={true} />
-            <View style={styles.modalContainer}>
-              <View style={styles.innerContainer}>
-                <View style={styles.formRow}>
-                  <TextInput
-                    value={this.state.newText}
-                    placeholder={"Input"}
-                    style={styles.input}
-                    placeholderTextColor={"#888"}
-                    autoCapitalize={"none"}
-                    autoCorrect={false}
-                    onChangeText={this._onTextChange}
-                  />
+            <Modal
+              visible={this.state.modalVisible}
+              animationType={"slide"}
+              onRequestClose={() => this.closeModal()}
+            >
+              <StatusBar hidden={true} />
+              <View style={styles.modalContainer}>
+                <View style={styles.innerContainer}>
+                  <View style={styles.formRow}>
+                    <TextInput
+                      value={this.state.newText}
+                      placeholder={"Input"}
+                      style={styles.input}
+                      placeholderTextColor={"#888"}
+                      autoCapitalize={"none"}
+                      autoCorrect={false}
+                      onChangeText={this._onTextChange}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPressOut={() => {
+                      {
+                        this.state.newText
+                          ? 
+                          this._sendAction(this.state.newText)
+                          : Alert.alert("Input field is required!");
+                      }
+                      this.closeModal();
+                    }}
+                  >
+                    <View style={styles.uploadBtn}>
+                      <Text style={styles.uploadText}>Add!</Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPressOut={() => {
+                      this.closeModal();
+                      this._getCards();
+                    }}
+                  >
+                    <View style={styles.calcelBtn}>
+                      <Text style={styles.uploadText}>Cancel!</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity
-                  onPressOut={() => {
-                    {
-                      this.state.newText
-                        ? this._sendAction(this.state.newText)
-                        : Alert.alert("Input field is required!");
-                    }
-                  }}
-                >
-                  <View style={styles.uploadBtn}>
-                    <Text style={styles.uploadText}>Add!</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  onPressOut={() => {
-                    this.closeModal();
-                  }}
-                >
-                  <View style={styles.calcelBtn}>
-                    <Text style={styles.uploadText}>Cancel!</Text>
-                  </View>
-                </TouchableOpacity>
               </View>
-            </View>
-          </Modal>
+            </Modal>
 
-          <Card>
-            <CardItem header>
-              <Text>Welcome to FlashCard!!!</Text>
-            </CardItem>
-            <CardItem>
-              <Body>
-                <Text>
-                  We are here to help you learn languages with flashcards. Go
-                  explore our flashcards library and you can also add your own
-                  cards.
-                </Text>
-              </Body>
-            </CardItem>
-          </Card>
-          
-          {datas && <WordCard data={datas}/>}
+            <Card>
+              <CardItem header>
+                <Text>Welcome to FlashCard!!!</Text>
+              </CardItem>
+              <CardItem>
+                <Body>
+                  <Text>
+                    We are here to help you learn languages with flashcards. Go
+                    explore our flashcards library and you can also add your own
+                    cards.
+                  </Text>
+                </Body>
+              </CardItem>
+            </Card>
 
+            {datas && <WordCard data={datas} />}
+          </ScrollView>
         </Content>
       </Container>
     );
@@ -165,6 +190,15 @@ export default class HomeScreen extends React.Component {
     }
 
     // TODO: API Call (POST)
+    fetch(`https://stormy-waters-25481.herokuapp.com/1/card/new`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        text
+      })
+    });
   };
 
   _onTextChange = text => {
