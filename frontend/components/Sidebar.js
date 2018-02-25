@@ -44,7 +44,7 @@ export default class SideBar extends React.Component {
     return (
       <Container>
         <Content>
-         <Icon name='logo-buffer' style={styles.icon}>FlashCard</Icon>
+         <Icon name='logo-buffer' style={styles.icon}>SmartCards</Icon>
           <Text style={styles.category}>Language</Text>
           <List
             dataArray={languages}

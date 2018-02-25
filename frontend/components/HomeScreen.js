@@ -187,7 +187,7 @@ export default class HomeScreen extends React.Component {
 
           <Card>
             <CardItem header>
-              <Text>Welcome to FlashCard!!!</Text>
+              <Text>Welcome to SmartCards!!!</Text>
             </CardItem>
             <CardItem>
               <Body>
