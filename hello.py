@@ -61,6 +61,7 @@ def getstuff(user):
 
 @app.route("/<string:user_name>/Update") 
     def updateUser() {
+        from sqlalchemy import update
         update_json {
             "name" = "updated_name",
 
