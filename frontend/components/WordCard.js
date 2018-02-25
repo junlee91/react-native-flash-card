@@ -20,6 +20,7 @@ import {
   Toast,
   Button
 } from "native-base";
+import FlipCard from "react-native-flip-card";
 
 // Dummy Test Data
 const cards = [
@@ -75,26 +76,45 @@ export default class CardContent extends React.Component {
     console.log(datas.data);
 
     return (
-      <DeckSwiper
-        onSwipeRight={this.picDisplayFalse}
-        onSwipeLeft={this.picDisplayFalse}
-        dataSource={datas.data}
-        renderItem={item => (
-          <TouchableOpacity activeOpacity={1} onPress={this.tapToSwitch}>
-            <Card style={styles.card}>
-              <CardItem cardBody>
-                <Text style={styles.wordStyle}>{item.name}</Text>
-                <Image
-                  style={
-                    this.state.picDisplay ? styles.picStyle : styles.picStyle_n
-                  }
-                  source={{ uri: item.img_url }}
-                />
-              </CardItem>
-            </Card>
-          </TouchableOpacity>
-        )}
-      />
+      <Container>
+        <View style={styles.swiper}>
+          <DeckSwiper
+            onSwipeRight={this.picDisplayFalse}
+            onSwipeLeft={this.picDisplayFalse}
+            dataSource={datas.data}
+            renderItem={item => (
+              <TouchableOpacity activeOpacity={1} onPress={this.tapToSwitch}>
+                <Card style={styles.card}>
+                  <CardItem cardBody>
+                    <Text style={styles.wordStyle}>{item.name}</Text>
+                    <Image
+                      style={
+                        this.state.picDisplay
+                          ? styles.picStyle
+                          : styles.picStyle_n
+                      }
+                      source={{ uri: item.img_url }}
+                    />
+                  </CardItem>
+                </Card>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+
+        <View
+          style={{
+            flex: 1,
+            marginTop: 50,
+            justifyContent: 'center',
+            alignSelf: 'center'
+          }}
+        >
+          <Button>
+            <Text>Translate!</Text>
+          </Button>
+        </View>
+      </Container>
     );
   }
 }
@@ -102,12 +122,15 @@ export default class CardContent extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: "center"
   },
   horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     padding: 10
+  },
+  swiper: {
+    marginTop: 10
   },
   wordStyle: {
     flex: 1,
@@ -146,5 +169,18 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: "hidden",
     borderRadius: 10
+  },
+  flipCard: {
+    flex: 1,
+    borderWidth: 1,
+    height: 50
+  },
+  face: {
+    flex: 1,
+    alignSelf: "center"
+  },
+  back: {
+    flex: 1,
+    alignSelf: "center"
   }
 });
