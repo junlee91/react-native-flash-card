@@ -1,6 +1,9 @@
 # react-native-flash-card
 
-[PROJECT DESCRIPTION]
+Newcomers that arrive in countries they have never lived in before, usually are overwhelmed and it is tough for them to manage without knowing the dialect that the country uses. SmartCards will allow users to get over this barrier,  by actively giving them translations and pictures of certain phrases or words the user wants to learn.
+
+
+## Technologies
 This application may not run correctly on Andorid. Waiting for your awesome contribution!
   * Bing Image Search
   * Google Translate
