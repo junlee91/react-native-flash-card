@@ -6,7 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  ScrollView
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import {
   Container,
@@ -31,7 +32,8 @@ export default class HomeScreen extends React.Component {
   state = {
     modalVisible: false,
     newText: "",
-    cards: []
+    cards: [],
+    isFetching: false
   };
 
   openModal() {
@@ -46,49 +48,68 @@ export default class HomeScreen extends React.Component {
     this._getCards();
   }
 
-  _getCards = async () => {
-    const cards = await this._callApi();
+  _refresh = () => {
+    
     this.setState({
-      cards
+      isFetching: true
+    });
+    console.log('refreshing...?')
+    this._getCards();
+  };
+
+  _getCards = async () => {
+    console.log('getting...')
+    const cards = await this._callApi();
+
+    this.setState({
+      cards,
+      isFetching: false
     });
   };
 
   _callApi = () => {
     return fetch("https://stormy-waters-25481.herokuapp.com/getCards")
       .then(response => response.json()) // only one attribute
-      .then(json => json.Card) // don't need return statement  '=>' automatically returns
+      .then(json => json) // don't need return statement  '=>' automatically returns
       .catch(err => console.log(err));
   };
 
   render() {
-    const datas = this.state.cards;
+    const datas = this.state.cards.Card;
     //console.log(datas)
     return (
-      <ScrollView>
-        <Container>
-          <Header>
-            <Left>
-              <Button
-                transparent
-                onPress={() => this.props.navigation.navigate("DrawerOpen")}
-              >
-                <Icon name="menu" />
-              </Button>
-            </Left>
-            <Body>
-              <Title>Home</Title>
-            </Body>
-            <Right>
-              <Ionicons
-                name={"ios-add"}
-                color={"skyblue"}
-                size={40}
-                onPress={() => this.openModal()}
-              />
-            </Right>
-          </Header>
-
-          <Content padder scrollEnabled={false}>
+      <Container>
+        <Header>
+          <Left>
+            <Button
+              transparent
+              onPress={() => this.props.navigation.navigate("DrawerOpen")}
+            >
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Home</Title>
+          </Body>
+          <Right>
+            <Ionicons
+              name={"ios-add"}
+              color={"skyblue"}
+              size={40}
+              onPress={() => this.openModal()}
+            />
+          </Right>
+        </Header>
+        <Content padder scrollEnabled={false}>
+          <ScrollView
+              refreshControl={
+                <RefreshControl 
+                  refreshing={this.state.isFetching}
+                  onRefresh={this._refresh}
+                  tintColor={"black"}
+                />
+              }
+            >
             <Modal
               visible={this.state.modalVisible}
               animationType={"slide"}
@@ -151,9 +172,9 @@ export default class HomeScreen extends React.Component {
             </Card>
 
             {datas && <WordCard data={datas} />}
-          </Content>
-        </Container>
-      </ScrollView>
+          </ScrollView>
+        </Content>
+      </Container>
     );
   }
 
