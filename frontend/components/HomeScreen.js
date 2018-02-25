@@ -53,9 +53,9 @@ export default class HomeScreen extends React.Component {
   };
 
   _callApi = () => {
-    return fetch("https://stormy-waters-25481.herokuapp.com/getUsers")
+    return fetch("https://stormy-waters-25481.herokuapp.com/getCards")
       .then(response => response.json()) // only one attribute
-      .then(json => json.User) // don't need return statement  '=>' automatically returns
+      .then(json => json.Card) // don't need return statement  '=>' automatically returns
       .catch(err => console.log(err));
   };
 

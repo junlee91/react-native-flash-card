@@ -36,7 +36,7 @@ export default class SideBar extends React.Component {
 
 
   render() {
-    console.log(this.state.categories);
+    //console.log(this.state.categories);
     return (
       <Container>
         <Content>
