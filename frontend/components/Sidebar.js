@@ -3,10 +3,6 @@ import { Platform, AppRegistry, StyleSheet, StatusBar } from "react-native";
 import { Container, Content, Text, List, ListItem,Icon, Header } from "native-base";
 
 
-const routes = ["List0000", "List1111", "List2222","List3333"];
-
-
-
 export default class SideBar extends React.Component {
   constructor(){
     super();
@@ -32,7 +28,6 @@ export default class SideBar extends React.Component {
           .then(response => response.json())
           .then((json) => {
             let categories = [];
-            //console.log(json.Category);
             for(let i in json.Category){
               categories.push(json.Category[i].name);
             }
