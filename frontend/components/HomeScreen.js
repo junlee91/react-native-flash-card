@@ -76,6 +76,7 @@ export default class HomeScreen extends React.Component {
   render() {
     const datas = this.state.cards.Card;
     //console.log(datas)
+    console.log(this.props.navigation.state.params);
     return (
       <Container>
         <Header>
