@@ -1,0 +1,4 @@
+SQLAlchemy==1.1.13
+gunicorn
+flask
+googletrans
