@@ -5,7 +5,9 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Alert
+  Alert,
+  ScrollView,
+  RefreshControl
 } from "react-native";
 import {
   Container,
@@ -25,13 +27,16 @@ import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 
 import WordCard from "./WordCard";
+// const translate = require('google-translate-api');
 
 export default class HomeScreen extends React.Component {
   state = {
     modalVisible: false,
     newText: "",
-    cards: []
+    cards: [],
+    isFetching: false
   };
+  
 
   openModal() {
     this.setState({ modalVisible: true });
@@ -41,27 +46,59 @@ export default class HomeScreen extends React.Component {
     this.setState({ modalVisible: false });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this._getCards();
   }
 
-  _getCards = async () => {
-    const cards = await this._callApi();
+  _refresh = () => {
     this.setState({
-      cards
+      isFetching: true
+    });
+    console.log("refreshing...?");
+    this._getCards();
+  };
+
+  _getCards = async () => {
+    console.log("getting...");
+    const cards = await this._callApi();
+
+    this.setState({
+      cards,
+      isFetching: false
     });
   };
 
   _callApi = () => {
     return fetch("https://stormy-waters-25481.herokuapp.com/getCards")
       .then(response => response.json()) // only one attribute
-      .then(json => json.Card) // don't need return statement  '=>' automatically returns
+      .then(json => json) // don't need return statement  '=>' automatically returns
       .catch(err => console.log(err));
   };
 
   render() {
-    const datas = this.state.cards;
+    let datas = this.state.cards.Card;
     //console.log(datas)
+    // if (this.props.navigation.state.params) {
+    //   console.log(this.props.navigation.state.params);
+    // }
+
+    // if(datas){
+    //   for (let i = 0; i < datas.length; i++) {
+    //     translate('Ik spreek Engels', { to: this.props.navigation.state.params }).then(res => {
+    //       datas[i]['translated_name'] = res.text;     
+    //       // console.log(res.text);
+    //       //=> I speak English 
+    //       // console.log(res.from.language.iso);
+    //       //=> nl 
+    //     }).catch(err => {
+    //       console.error(err);
+    //     });
+  
+    //   }
+    // }
+    
+
+
     return (
       <Container>
         <Header>
@@ -77,15 +114,28 @@ export default class HomeScreen extends React.Component {
             <Title>Home</Title>
           </Body>
           <Right>
-            <Ionicons
-              name={"ios-add"}
-              color={"skyblue"}
-              size={40}
-              onPress={() => this.openModal()}
-            />
+            <View style={styles.topRight}>
+              <Ionicons
+                name={"ios-refresh-outline"}
+                color={"skyblue"}
+                size={40}
+                onPress={() => this._refresh()}
+                style={
+                  marginRight = 5
+                }
+              />
+              <Ionicons
+                name={"ios-add"}
+                color={"skyblue"}
+                size={40}
+                onPress={() => this.openModal()}
+                style={
+                  marginRight = 5
+                }
+              />
+            </View>
           </Right>
         </Header>
-
         <Content padder scrollEnabled={false}>
           <Modal
             visible={this.state.modalVisible}
@@ -113,6 +163,7 @@ export default class HomeScreen extends React.Component {
                         ? this._sendAction(this.state.newText)
                         : Alert.alert("Input field is required!");
                     }
+                    this.closeModal();
                   }}
                 >
                   <View style={styles.uploadBtn}>
@@ -123,6 +174,7 @@ export default class HomeScreen extends React.Component {
                 <TouchableOpacity
                   onPressOut={() => {
                     this.closeModal();
+                    this._getCards();
                   }}
                 >
                   <View style={styles.calcelBtn}>
@@ -147,9 +199,8 @@ export default class HomeScreen extends React.Component {
               </Body>
             </CardItem>
           </Card>
-          
-          {datas && <WordCard data={datas}/>}
 
+          {datas && <WordCard data={datas} />}
         </Content>
       </Container>
     );
@@ -165,6 +216,15 @@ export default class HomeScreen extends React.Component {
     }
 
     // TODO: API Call (POST)
+    fetch(`https://stormy-waters-25481.herokuapp.com/1/card/new`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        text
+      })
+    });
   };
 
   _onTextChange = text => {

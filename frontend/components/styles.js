@@ -53,6 +53,10 @@ const styles = StyleSheet.create({
   },
   dialog: {
     justifyContent: "center"
+  },
+  topRight: {
+    flexDirection: "row",
+    justifyContent: "space-around",
   }
 });
 
