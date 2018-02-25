@@ -120,7 +120,22 @@ def getstuff():
 
     users_conn = session.query(User)
     users = users_conn.all()
-    return "users"
+    courses_list = [user.serialize for user in users]
+
+    return jsonify(User=courses_list)
+
+
+app.route("/<int:user_id>/Update")
+
+
+def updateUser(user_id):
+    from sqlalchemy import update
+    update_json = {
+        "name": "updated_name",
+    }
+    stmt = update(User).where(user_id == user_id).\
+        values(name=update_json["name"])
+    return "Success"
 
 
 if __name__ == "__main__":
