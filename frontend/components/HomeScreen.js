@@ -23,13 +23,14 @@ import {
 } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
-import AddComponent from "./AddComponent";
+
 import WordCard from "./WordCard";
 
 export default class HomeScreen extends React.Component {
   state = {
     modalVisible: false,
-    newText: ""
+    newText: "",
+    cards: []
   };
 
   openModal() {
@@ -40,8 +41,27 @@ export default class HomeScreen extends React.Component {
     this.setState({ modalVisible: false });
   }
 
+  componentDidMount(){
+    this._getCards();
+  }
+
+  _getCards = async () => {
+    const cards = await this._callApi();
+    this.setState({
+      cards
+    });
+  };
+
+  _callApi = () => {
+    return fetch("https://stormy-waters-25481.herokuapp.com/getCards")
+      .then(response => response.json()) // only one attribute
+      .then(json => json.Card) // don't need return statement  '=>' automatically returns
+      .catch(err => console.log(err));
+  };
+
   render() {
-    
+    const datas = this.state.cards;
+    //console.log(datas)
     return (
       <Container>
         <Header>
@@ -65,7 +85,7 @@ export default class HomeScreen extends React.Component {
             />
           </Right>
         </Header>
-        
+
         <Content padder scrollEnabled={false}>
           <Modal
             visible={this.state.modalVisible}
@@ -127,11 +147,11 @@ export default class HomeScreen extends React.Component {
               </Body>
             </CardItem>
           </Card>
-          <WordCard/>
+          
+          {datas && <WordCard data={datas}/>}
+
         </Content>
-       
       </Container>
-      
     );
   }
 
@@ -141,7 +161,7 @@ export default class HomeScreen extends React.Component {
 
       this.setState({
         newText: ""
-      })
+      });
     }
 
     // TODO: API Call (POST)
