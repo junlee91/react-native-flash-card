@@ -2,10 +2,8 @@ import React from "react";
 import { Platform, AppRegistry, StyleSheet, StatusBar } from "react-native";
 import { Container, Content, Text, List, ListItem,Icon, Header } from "native-base";
 
-
+// Dummy Test Data
 const routes = ["List0000", "List1111", "List2222","List3333"];
-
-
 
 export default class SideBar extends React.Component {
   constructor(){
