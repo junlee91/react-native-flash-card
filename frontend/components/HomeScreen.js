@@ -27,7 +27,8 @@ import { Ionicons } from "@expo/vector-icons";
 import styles from "./styles";
 
 import WordCard from "./WordCard";
-const translate = require('google-translate-api');
+// const translate = require('google-translate-api');
+
 export default class HomeScreen extends React.Component {
   state = {
     modalVisible: false,
@@ -77,24 +78,24 @@ export default class HomeScreen extends React.Component {
   render() {
     let datas = this.state.cards.Card;
     //console.log(datas)
-    if (this.props.navigation.state.params) {
-      console.log(this.props.navigation.state.params);
-    }
+    // if (this.props.navigation.state.params) {
+    //   console.log(this.props.navigation.state.params);
+    // }
 
-    if(datas){
-      for (let i = 0; i < datas.length; i++) {
-        translate('Ik spreek Engels', { to: this.props.navigation.state.params }).then(res => {
-          datas[i]['translated_name'] = res.text;     
-          // console.log(res.text);
-          //=> I speak English 
-          // console.log(res.from.language.iso);
-          //=> nl 
-        }).catch(err => {
-          console.error(err);
-        });
+    // if(datas){
+    //   for (let i = 0; i < datas.length; i++) {
+    //     translate('Ik spreek Engels', { to: this.props.navigation.state.params }).then(res => {
+    //       datas[i]['translated_name'] = res.text;     
+    //       // console.log(res.text);
+    //       //=> I speak English 
+    //       // console.log(res.from.language.iso);
+    //       //=> nl 
+    //     }).catch(err => {
+    //       console.error(err);
+    //     });
   
-      }
-    }
+    //   }
+    // }
     
 
 
