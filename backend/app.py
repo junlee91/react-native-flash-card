@@ -4,6 +4,11 @@ from flask import Flask, render_template, request, redirect, jsonify, \
 from sqlalchemy import create_engine, asc, desc, and_
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, User, Category, Card
+from py_bing_search import PyBingImageSearch
+from random import randint
+
+import requests
+import pprint
 
 
 app = Flask(__name__)
@@ -19,8 +24,26 @@ session = DBSession()
 
 
 def _translate(aa):
+    from googletrans import Translator
+    translator = Translator()
+    dest = 'ko'
+    translated_text = translator.translate(
+        aa, dest).text
+    return translated_text
 
-    return aa + "bb"
+
+def _get_image(name):
+    search_term = "lake"
+    search_url = "https://api.cognitive.microsoft.com/bing/v7.0/images/search"
+
+    headers = {"Ocp-Apim-Subscription-Key": "1a18e93243bb415e88efcbf0708e9189"}
+    params = {"q": search_term, "license": "public", "imageType": "photo"}
+    response = requests.get(search_url, headers=headers,
+                            params=params)
+    response.raise_for_status()
+    search_results = response.json()
+
+    return search_results
 
 
 @app.route('/newCategory', methods=['POST'])
@@ -29,12 +52,12 @@ def newCategory():
     user = session.query(User).filter_by(name="seho").one()
 
     #name = request.form['name']
-    name = "hello"
-
+    name = "New Category"
+    description = "New Description."
     #description = request.form['description']
-    description = _translate(name)
     created_by = user.name
     category_list = []
+
     if name and description:
         users = session.query(User).all()
         for c in users:
@@ -57,45 +80,34 @@ def newCategory():
     return "Success4"
 
 
-@app.route("/<int:category_id>/Card/new", methods=['GET', 'POST'])
+@app.route("/<int:category_id>/card/new", methods=['GET', 'POST'])
 def new_Card(category_id):
-    user = session.query(User).filter_by(name='seho').one()
+
+    print("category id: ", category_id)
+    user = session.query(User).filter_by(id=1).one()
     category = session.query(Category).filter_by(id=category_id).one()
-    print("stuff")
     if request.method == 'POST':
+        content = request.json
+
         #name = request.form['name']
-        name = "random_hello2"
+        # This input word is supposed to come from the client.
+        input_word = "text"
         #category = request.form['category']
         category = "random_category2"
-        translated_name = "I am trnaslated stuff."
+        input_word = "lake"
+        translated_text = _translate(input_word)
+        img_json = _get_image(input_word)
+
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(img_json)
+        url = img_json["value"][0]["contentUrl"]
+
         # Checks if the user input a name and a description.
-        print("things")
-        if name and category:
-            cards = session.query(Card).filter_by(category_id=1).all()
-            print(cards)
-            name = name.lower()
 
-            print("asdfasdfasdf")
-            for c in cards:
-                if c.name.lower() is name:
-                    # flash("The %s card is already exists" %
-                    #      name)  # NEEDS TO BE DELETED
-                    return "Success1"
-
-            created_card = Card(name=name, translated_name=translated_name,
-                                category_id=category_id, created_by=user.name,
-                                user_id=user.id)
-            session.add(created_card)
-            session.commit()
-            return "Success2"
-
-        else:
-            #flash("Please input a name and a category")
-            return "Success3"
-    else:
-        return "Success4"
-
-    return "Success5"
+        created_card = Card(name=input_word, img_url=img_url, translated_name=translated_text,
+                            category_id=category_id, user_id=user.id)
+        session.add(created_card)
+        session.commit()
 
 
 @app.route("/<int:category_id>/update", methods=['GET', 'POST'])
