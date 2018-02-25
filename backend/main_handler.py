@@ -57,33 +57,17 @@ def newCategory():
     return "Success4"
 
 
-<<<<<<< HEAD
-'''
-class Card(Base):
-    __tablename__ = 'card'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-    translated_name = Column(String(250), nullable=False)
-    #memorized = Column(Integer)
-    memorized_bool = Column(Boolean)
-    created_on = Column(DateTime, default=func.now())
-    created_by = Column(String(250), nullable=False)
-    category = relationship("Category")
-    category_id = Column(Integer, ForeignKey('category.id'))
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship("User")
-'''
+
+
 
 @app.route('/<int:category_id>/Delete', methods=['POST'])
 def delete(category_id):
     if request.method == 'POST':
         Category.query.filter(category.id == category_id).delete()
 
-
     return 
 
-=======
->>>>>>> f8ee1b85c534ead5cfec9c47cde2e23b578f9eb5
+
 @app.route("/<int:category_id>/Card/new", methods=['GET', 'POST'])
 def new_Card(category_id):
     user = session.query(User).filter_by(name='seho').one()
