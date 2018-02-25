@@ -7,10 +7,13 @@
   * [USAGE EXAMPLE]
 
 ## BUILD/INSTALLATION INSTRUCTIONS
-  * [PLATFORM 1]
-    * [BUILD EXAMPLE]
-  * [PLATFORM 2]
-    * [BUILD EXAMPLE]
+```sh
+git clone https://github.com/junlee91/react-native-flash-card.git
+
+cd frontend
+
+npm install
+``` 
 
 ## Demo
 [YouTube Demo](https://youtu.be/QVFjnGwLi9c) 
