@@ -45,13 +45,17 @@ export default class CardContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      picDisplay: false
+      picDisplay: false,
+      translated_name: "",
+      show: false
     };
   }
 
-  tapToSwitch = () => {
+  tapToSwitch = text => {
+    console.log("tap! " + text);
     this.setState({
-      picDisplay: !this.state.picDisplay
+      picDisplay: !this.state.picDisplay,
+      translated_name: text
     });
   };
 
@@ -73,7 +77,7 @@ export default class CardContent extends React.Component {
       );
     }
 
-    console.log(datas.data);
+    //console.log(datas.data);
 
     return (
       <Container>
@@ -83,37 +87,45 @@ export default class CardContent extends React.Component {
             onSwipeLeft={this.picDisplayFalse}
             dataSource={datas.data}
             renderItem={item => (
-              <TouchableOpacity activeOpacity={1} onPress={this.tapToSwitch}>
-                <Card style={styles.card}>
-                  <CardItem cardBody>
-                    <Text style={styles.wordStyle}>{item.name}</Text>
-                    <Image
-                      style={
-                        this.state.picDisplay
-                          ? styles.picStyle
-                          : styles.picStyle_n
-                      }
-                      source={{ uri: item.img_url }}
-                    />
-                  </CardItem>
-                </Card>
-              </TouchableOpacity>
+              <View>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => this.tapToSwitch(item.translated_name)}
+                >
+                  <Card style={styles.card}>
+                    <CardItem cardBody>
+                      <Text style={styles.wordStyle}>{item.name}</Text>
+                      <Image
+                        style={
+                          this.state.picDisplay
+                            ? styles.picStyle_n
+                            : styles.picStyle
+                        }
+                        source={{ uri: item.img_url }}
+                      />
+                    </CardItem>
+                  </Card>
+                </TouchableOpacity>
+              </View>
             )}
           />
         </View>
-
-        <View
-          style={{
-            flex: 1,
-            marginTop: 50,
-            justifyContent: 'center',
-            alignSelf: 'center'
-          }}
-        >
-          <Button>
-            <Text>Translate!</Text>
-          </Button>
-        </View>
+        {this.state.picDisplay && (
+          <FlipCard
+            style={{
+              flex: 1
+            }}
+          >
+            {/* Face Side */}
+            <View style={styles.face}>
+              <Text>Translate!</Text>
+            </View>
+            {/* Back Side */}
+            <View style={styles.back}>
+              <Text>{this.state.translated_name}</Text>
+            </View>
+          </FlipCard>
+        )}
       </Container>
     );
   }
