@@ -50,7 +50,6 @@ class Card(Base):
     #memorized = Column(Integer)
     memorized_bool = Column(Boolean)
     created_on = Column(DateTime, default=func.now())
-    created_by = Column(String(250), nullable=False)
     category = relationship("Category")
     category_id = Column(Integer, ForeignKey('category.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
