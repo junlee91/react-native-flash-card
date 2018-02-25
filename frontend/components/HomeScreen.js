@@ -91,90 +91,93 @@ export default class HomeScreen extends React.Component {
             <Title>Home</Title>
           </Body>
           <Right>
-            <Ionicons
-              name={"ios-add"}
-              color={"skyblue"}
-              size={40}
-              onPress={() => this.openModal()}
-            />
+            <View style={styles.topRight}>
+              <Ionicons
+                name={"ios-refresh-outline"}
+                color={"skyblue"}
+                size={40}
+                onPress={() => this._refresh()}
+                style={
+                  marginRight= 5
+                }
+              />
+              <Ionicons
+                name={"ios-add"}
+                color={"skyblue"}
+                size={40}
+                onPress={() => this.openModal()}
+                style={
+                  marginRight= 5
+                }
+              />
+            </View>
           </Right>
         </Header>
         <Content padder scrollEnabled={false}>
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.isFetching}
-                onRefresh={this._refresh}
-                tintColor={"black"}
-              />
-            }
+          <Modal
+            visible={this.state.modalVisible}
+            animationType={"slide"}
+            onRequestClose={() => this.closeModal()}
           >
-            <Modal
-              visible={this.state.modalVisible}
-              animationType={"slide"}
-              onRequestClose={() => this.closeModal()}
-            >
-              <StatusBar hidden={true} />
-              <View style={styles.modalContainer}>
-                <View style={styles.innerContainer}>
-                  <View style={styles.formRow}>
-                    <TextInput
-                      value={this.state.newText}
-                      placeholder={"Input"}
-                      style={styles.input}
-                      placeholderTextColor={"#888"}
-                      autoCapitalize={"none"}
-                      autoCorrect={false}
-                      onChangeText={this._onTextChange}
-                    />
-                  </View>
-                  <TouchableOpacity
-                    onPressOut={() => {
-                      {
-                        this.state.newText
-                          ? 
-                          this._sendAction(this.state.newText)
-                          : Alert.alert("Input field is required!");
-                      }
-                      this.closeModal();
-                    }}
-                  >
-                    <View style={styles.uploadBtn}>
-                      <Text style={styles.uploadText}>Add!</Text>
-                    </View>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    onPressOut={() => {
-                      this.closeModal();
-                      this._getCards();
-                    }}
-                  >
-                    <View style={styles.calcelBtn}>
-                      <Text style={styles.uploadText}>Cancel!</Text>
-                    </View>
-                  </TouchableOpacity>
+            <StatusBar hidden={true} />
+            <View style={styles.modalContainer}>
+              <View style={styles.innerContainer}>
+                <View style={styles.formRow}>
+                  <TextInput
+                    value={this.state.newText}
+                    placeholder={"Input"}
+                    style={styles.input}
+                    placeholderTextColor={"#888"}
+                    autoCapitalize={"none"}
+                    autoCorrect={false}
+                    onChangeText={this._onTextChange}
+                  />
                 </View>
+                <TouchableOpacity
+                  onPressOut={() => {
+                    {
+                      this.state.newText
+                        ? this._sendAction(this.state.newText)
+                        : Alert.alert("Input field is required!");
+                    }
+                    this.closeModal();
+                  }}
+                >
+                  <View style={styles.uploadBtn}>
+                    <Text style={styles.uploadText}>Add!</Text>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPressOut={() => {
+                    this.closeModal();
+                    this._getCards();
+                  }}
+                >
+                  <View style={styles.calcelBtn}>
+                    <Text style={styles.uploadText}>Cancel!</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </Modal>
+            </View>
+          </Modal>
 
-            <Card>
-              <CardItem header>
-                <Text>Welcome to FlashCard!!!</Text>
-              </CardItem>
-              <CardItem>
-                <Body>
-                  <Text>
-                    We are here to help you learn languages with flashcards. Go
-                    explore our flashcards library and you can also add your own
-                    cards.
-                  </Text>
-                </Body>
-              </CardItem>
-            </Card>
+          <Card>
+            <CardItem header>
+              <Text>Welcome to FlashCard!!!</Text>
+            </CardItem>
+            <CardItem>
+              <Body>
+                <Text>
+                  We are here to help you learn languages with flashcards. Go
+                  explore our flashcards library and you can also add your own
+                  cards.
+                </Text>
+              </Body>
+            </CardItem>
+          </Card>
 
-            {datas && <WordCard data={datas} />}
-          </ScrollView>
+          {datas && <WordCard data={datas} />}
         </Content>
       </Container>
     );
