@@ -113,16 +113,18 @@ export default class CardContent extends React.Component {
         {this.state.picDisplay && (
           <FlipCard
             style={{
-              flex: 1
+              flex: 1,
+              marginTop: 7,
+              height: 50
             }}
           >
             {/* Face Side */}
             <View style={styles.face}>
-              <Text>Translate!</Text>
+              <Text style={styles.faceText}>Translate!</Text>
             </View>
             {/* Back Side */}
             <View style={styles.back}>
-              <Text>{this.state.translated_name}</Text>
+              <Text style={styles.backText}>{this.state.translated_name}</Text>
             </View>
           </FlipCard>
         )}
@@ -194,5 +196,11 @@ const styles = StyleSheet.create({
   back: {
     flex: 1,
     alignSelf: "center"
+  },
+  faceText: {
+    fontSize: 20
+  },
+  backText: {
+    fontSize: 20
   }
 });
